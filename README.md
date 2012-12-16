@@ -14,7 +14,7 @@ Then configure `config.yml`
 
 ```
 engine:
-    theme_path: %dir%/vendor/lyrixx/carew-theme-bootstrap
+    theme_path: %dir%/vendor/carew/theme-bootstrap
 ```
 
 Customisation
