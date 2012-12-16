@@ -1,13 +1,11 @@
 {
-    "name": "lyrixx/carew-theme-bootstrap",
+    "name": "carew/theme-bootstrap",
     "description": "Twitter bootstrap theme for Carew",
+    "license": "MIT",
     "authors": [
         {
             "name": "Grégoire Pineau",
             "email": "lyrixx@lyrixx.info"
         }
-    ],
-    "require": {
-
-    }
+    ]
 }
