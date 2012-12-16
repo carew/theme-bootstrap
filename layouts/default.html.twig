@@ -13,6 +13,8 @@
     <meta name="author" content="{{ document.author_name|default(site.author_name|default('')) }}">
     <meta name="viewport" content="width=device-width">
 
+    {% block metas '' %}
+
     {% if site.url_absolute is defined and site.url_absolute -%}
       <link rel="canonical" href="{{ site.url_absolute }}/{{ document.path }}"/>
     {%- endif %}
@@ -22,6 +24,8 @@
     <link rel="stylesheet" href="{{ relativeRoot }}/css/main.css">
     <link rel="stylesheet" href="{{ relativeRoot }}/css/highlight.css">
 
+    {% block stylesheets '' %}
+
     <script src="{{ relativeRoot }}/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -30,50 +34,60 @@
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
 
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="{{ relativeRoot }}">{{ site.title|default('') }}</a>
-                <div class="nav-collapse collapse">
-                  {% block nav_left %}
-                    <ul class="nav">
-                      {% if navigation.main is defined %}
-                        {% for document in navigation.main %}
-                          {% if document.path == currentPath %}
-                            <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
-                          {% else %}
-                            <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
-                          {% endif %}
-                        {% endfor %}
-                      {% endif %}
-                    </ul>
-                  {% endblock %}
-                  {% block nav_right '' %}
-                </div>
-            </div>
-        </div>
-    </div>
+    {% block header_before '' %}
 
-    {% block body %}
+    {% block header %}
+      <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="{{ relativeRoot }}">{{ site.title|default('') }}</a>
+                  <div class="nav-collapse collapse">
+                    {% block nav_left %}
+                      <ul class="nav">
+                        {% if navigation.main is defined %}
+                          {% for document in navigation.main %}
+                            {% if document.path == currentPath %}
+                              <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
+                            {% else %}
+                              <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                      </ul>
+                    {% endblock %}
+                    {% block nav_right '' %}
+                  </div>
+              </div>
+          </div>
+      </div>
+    {% endblock %}
+
+    {% block header_after '' %}
+
+    {% block content %}
       <div class="container">
+
+        {% block content_header '' %}
 
         <div class="row">
           <div class="span10 offset1 content">
-            {% if document.title is defined and document.title %}
-              <div class="page-header">
-                <h1>{{ document.title }}{% if document.subtitle is defined %} <small>{{ document.subtitle }}</small>{% endif %}</h1>
-              </div>
-            {% endif %}
-            {% block content document.body|default('')|raw  %}
+            {% block content_title %}
+              {% if document.title is defined and document.title %}
+                <div class="page-header">
+                  <h1>{{ document.title }}{% if document.subtitle is defined %} <small>{{ document.subtitle }}</small>{% endif %}</h1>
+                </div>
+              {% endif %}
+            {% endblock %}
+            {% block content document.body|default('')|raw %}
           </div>
         </div>
 
-        {% block footer %}
+        {% block content_footer %}
           <footer>
             <p>
               &copy;
@@ -95,5 +109,6 @@
     <script>window.jQuery || document.write('<script src="{{ relativeRoot }}/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
     <script src="{{ relativeRoot }}/js/vendor/bootstrap.min.js"></script>
     <script src="{{ relativeRoot }}/js/main.js"></script>
+    {% block javascripts '' %}
   </body>
 </html>
