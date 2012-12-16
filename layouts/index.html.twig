@@ -1,0 +1,24 @@
+{% extends "default.html.twig" %}
+
+{% block content %}
+    <h2>Blog post</h2>
+    <ul>
+        {% for post in posts %}
+        <li><a href="{{ post.path }}">{{ post.date|date('M d') }}: {{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Pages</h2>
+    <ul>
+        {% for page in pages %}
+        <li><a href="{{ page.path }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Tags</h2>
+    <ul>
+        {% for tag  in tags|keys %}
+        <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'default.html.twig' %}
+
+{% block body %}
+  <div class="iframe">
+    {{ document.body|raw }}
+  </div>
+
+  <div class="container">
+    {{ block('footer') }}
+  </div>
+{% endblock %}
+
+
+
