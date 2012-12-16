@@ -74,18 +74,21 @@
 
         {% block content_header '' %}
 
-        <div class="row">
-          <div class="span10 offset1 content">
-            {% block content_title %}
-              {% if document.title is defined and document.title %}
-                <div class="page-header">
-                  <h1>{{ document.title }}{% if document.subtitle is defined %} <small>{{ document.subtitle }}</small>{% endif %}</h1>
-                </div>
-              {% endif %}
-            {% endblock %}
-            {% block content document.body|default('')|raw %}
+        {% block content_container %}
+          <div class="row">
+            <div class="span10 offset1 content">
+              {% block content_title %}
+                {% if document.title is defined and document.title %}
+                  <div class="page-header">
+                    <h1>{{ document.title }}{% if document.subtitle is defined %} <small>{{ document.subtitle }}</small>{% endif %}</h1>
+                  </div>
+                {% endif %}
+              {% endblock %}
+
+              {% block content_main document.body|default('')|raw %}
+            </div>
           </div>
-        </div>
+        {% endblock %}
 
         {% block content_footer %}
           <footer>
@@ -104,6 +107,8 @@
         {% endblock %}
       </div>
     {% endblock %}
+
+    {% block footer '' %}
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="{{ relativeRoot }}/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
