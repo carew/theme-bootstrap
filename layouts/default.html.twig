@@ -7,9 +7,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>{% block title document.metadata.title|default(site.title|default('')) %}</title>
+    <title>{% block title document.title|default(site.title|default('')) %}</title>
 
-    <meta name="description" content="{% block description document.metadata.description|default(site.description|default('')) %}">
+    <meta name="description" content="{% block description document.metadatas.description|default(site.description|default('')) %}">
     <meta name="author" content="{{ document.author_name|default(site.author_name|default('')) }}">
     <meta name="viewport" content="width=device-width">
 
@@ -52,9 +52,9 @@
                         {% if navigation.main is defined %}
                           {% for document in navigation.main %}
                             {% if document.path == currentPath %}
-                              <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.metadata.title }}</a></li>
+                              <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
                             {% else %}
-                              <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.metadata.title }}</a></li>
+                              <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
                             {% endif %}
                           {% endfor %}
                         {% endif %}
@@ -78,10 +78,10 @@
           <div class="row">
             <div class="span10 offset1 content">
               {% block content_title %}
-                {% if document.metadata.title is defined and document.metadata.title %}
+                {% if document.title is defined and document.title %}
                   <div class="page-header">
-                    <h1>{{ document.metadata.title }}
-                      {%- if document.metadata.subtitle is defined %} <small>{{ document.metadata.subtitle }}</small>{% endif -%}
+                    <h1>{{ document.title }}
+                      {%- if document.metadatas.subtitle is defined %} <small>{{ document.metadatas.subtitle }}</small>{% endif -%}
                     </h1>
                   </div>
                 {% endif %}

@@ -8,13 +8,13 @@
     {% if latest %}<updated>{{ latest.date|date('Y-m-d\\TH:i:sP') }}</updated>{% endif %}
     {% for post in posts %}
     <entry>
-        <title>{{ post.metadata.title }}</title>
+        <title>{{ post.title }}</title>
         <link rel="alternate" type="text/html" href="{{ url_absolute|default('') }}/{{ post.path }}"/>
         <id>{{ post.path }}</id>
-        <updated>{{ post.metadata.date|date('Y-m-d\\TH:i:sP') }}</updated>
+        <updated>{{ post.metadatas.date|date('Y-m-d\\TH:i:sP') }}</updated>
         <author>
-            <name>{{ post.metadata.author_name|default(site.author_name|default('')) }}</name>
-            <email>{{ post.metadata.author_name|default(site.email_email|default('')) }}</email>
+            <name>{{ post.metadatas.author_name|default(site.author_name|default('')) }}</name>
+            <email>{{ post.metadatas.author_name|default(site.email_email|default('')) }}</email>
         </author>
     </entry>
     {% endfor %}

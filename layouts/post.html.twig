@@ -1,11 +1,9 @@
 {% extends "default.html.twig" %}
 
-{% block title %}{{ document.metadata.title }}{% endblock %}
-
 {% block content_main %}
   <article>
     <div class="date pull-right">
-      {{ document.metadata.date|date('M jS, Y') }}
+      {{ document.metadatas.date|date('M jS, Y') }}
     </div>
 
     <div class="body">
@@ -15,12 +13,12 @@
     <hr>
 
     <h4>Published:</h4>
-    {{ document.metadata.date|date('M jS, Y') }}{% if document.metadata.author_name is defined %} by {{ document.metadata.author_name }}{% endif %}
+    {{ document.metadatas.date|date('M jS, Y') }}{% if document.metadatas.author_name is defined %} by {{ document.metadatas.author_name }}{% endif %}
 
-    {% if document.metadata.tags|length > 0 %}
+    {% if document.metadatas.tags|length > 0 %}
       <h4>Tags:</h4>
       <ul class="tag_box inline">
-        {% for tag in document.metadata.tags %}
+        {% for tag in document.metadatas.tags %}
           <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
         {% endfor %}
       </ul>
