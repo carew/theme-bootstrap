@@ -13,7 +13,6 @@
     <hr>
 
     <h4>Published:</h4>
-    {{ document.metadatas.date|date('M jS, Y') }}{% if document.metadatas.author_name is defined %} by {{ document.metadatas.author_name }}{% endif %}
 
     {% if document.metadatas.tags|length > 0 %}
       <h4>Tags:</h4>

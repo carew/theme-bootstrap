@@ -22,3 +22,11 @@
         {% endfor %}
     </ul>
 {% endblock %}
+
+{% block content_title %}
+<div class="page-header">
+    <h1>
+        {{ document.title|default(site.title|default('aaa')) }}
+    </h1>
+</div>
+{% endblock %}
