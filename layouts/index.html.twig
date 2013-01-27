@@ -1,38 +1,61 @@
 {% extends "default.html.twig" %}
 
-{% block content_main %}
-    {% if posts %}
-        <h2>Blog post</h2>
-        <ul>
-            {% for post in posts %}
-                <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if pages %}
-        <h2>Pages</h2>
-        <ul>
-            {% for page in pages %}
-                <li><a href="{{ relativeRoot }}/{{ page.path }}">{{ page.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if tags %}
-        <h2>Tags</h2>
-        <ul>
-            {% for tag in tags|keys %}
-                <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endblock %}
-
 {% block content_title %}
 <div class="page-header">
     <h1>
-        {{ document.title|default(site.title|default('aaa')) }}
+        {{ document.title|default(site.title|default('')) }}
     </h1>
 </div>
+{% endblock %}
+
+{% block content_main %}
+    {% block posts %}
+        {% if posts %}
+            <h2>Blog post</h2>
+            <ul>
+                {% for post in posts %}
+                    {% block post %}
+                        <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title }}</a></li>
+                    {% endblock %}
+                {% endfor %}
+                {% if posts_pagination is defined and posts_pagination|length > 1 %}
+                    <div class="pagination">
+                        <ul>
+                            {% for page in posts_pagination %}
+                                <li {% if document.path == page.path %}class="active"{% endif %}>
+                                    <a href="{{ relativeRoot}}/{{ page.path }}">{{ page.vars.page }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endblock %}
+
+    {% block pages %}
+        {% if pages %}
+            <h2>Pages</h2>
+            <ul>
+                {% for page in pages %}
+                    {% block page %}
+                        <li><a href="{{ relativeRoot }}/{{ page.path }}">{{ page.title }}</a></li>
+                    {% endblock %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
+
+    {% block tags %}
+        {% if tags %}
+            <h2>Tags</h2>
+            <ul>
+                {% for tag in tags|keys %}
+                    {% block tag %}
+                        <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
+                    {% endblock %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
 {% endblock %}
