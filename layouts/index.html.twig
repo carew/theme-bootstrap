@@ -3,7 +3,8 @@
 {% block content_title %}
 <div class="page-header">
     <h1>
-        {{ document.title|default(site.title|default('')) }}
+        {{- document.title|default(site.title|default('')) }}
+        {%- if site.description %} <small>{{ site.description }}</small>{% endif -%}
     </h1>
 </div>
 {% endblock %}
@@ -15,7 +16,7 @@
             <ul>
                 {% for post in posts %}
                     {% block post %}
-                        <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title }}</a></li>
+                        <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title|title }}</a></li>
                     {% endblock %}
                 {% endfor %}
                 {% if posts_pagination is defined and posts_pagination|length > 1 %}
@@ -39,7 +40,7 @@
             <ul>
                 {% for page in pages %}
                     {% block page %}
-                        <li><a href="{{ relativeRoot }}/{{ page.path }}">{{ page.title }}</a></li>
+                        <li><a href="{{ relativeRoot }}/{{ page.path }}">{{ page.title|title }}</a></li>
                     {% endblock %}
                 {% endfor %}
             </ul>
@@ -50,9 +51,9 @@
         {% if tags %}
             <h2>Tags</h2>
             <ul>
-                {% for tag in tags|keys %}
+                {% for tag in tags %}
                     {% block tag %}
-                        <li><a href="{{ relativeRoot }}/tags/{{ tag }}.html">{{ tag|title }}</a></li>
+                        <li><a href="{{ relativeRoot }}/{{ tag.path }}">{{ tag.title|title }}</a></li>
                     {% endblock %}
                 {% endfor %}
             </ul>

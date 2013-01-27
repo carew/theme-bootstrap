@@ -80,7 +80,8 @@
               {% block content_title %}
                 {% if document.title is defined and document.title %}
                   <div class="page-header">
-                    <h1>{{ document.title }}
+                    <h1>
+                      {{- document.title }}
                       {%- if document.metadatas.subtitle is defined %} <small>{{ document.metadatas.subtitle }}</small>{% endif -%}
                     </h1>
                   </div>
