@@ -9,16 +9,24 @@
 </div>
 {% endblock %}
 
+{% block ul_class '' %}
+
 {% block content_main %}
     {% block posts %}
         {% if posts %}
-            <h2>Blog post</h2>
-            <ul>
-                {% for post in posts %}
-                    {% block post %}
-                        <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title|title }}</a></li>
-                    {% endblock %}
-                {% endfor %}
+            {% block posts_title %}
+                <h2>Blog post</h2>
+            {% endblock %}
+            {% block posts_list %}
+                <ul class="{{ block('ul_class') }}">
+                    {% for post in posts %}
+                        {% block post %}
+                            <li><a href="{{ relativeRoot }}/{{ post.path }}">{{ post.metadatas.date|date('M d') }}: {{ post.title|title }}</a></li>
+                        {% endblock %}
+                    {% endfor %}
+                </ul>
+            {% endblock %}
+            {% block post_pagination %}
                 {% if posts_pagination is defined and posts_pagination|length > 1 %}
                     <div class="pagination">
                         <ul>
@@ -30,33 +38,41 @@
                         </ul>
                     </div>
                 {% endif %}
-            </ul>
+            {% endblock %}
         {% endif %}
     {% endblock %}
 
     {% block pages %}
         {% if pages %}
-            <h2>Pages</h2>
-            <ul>
-                {% for page in pages %}
-                    {% block page %}
-                        <li><a href="{{ relativeRoot }}/{{ page.path }}">{{ page.title|title }}</a></li>
-                    {% endblock %}
-                {% endfor %}
-            </ul>
+            {% block pages_title %}
+                <h2>Pages</h2>
+            {% endblock %}
+            {% block page_list %}
+                <ul class="{{ block('ul_class') }}">
+                    {% for page in pages %}
+                        {% block page %}
+                            <li><a href="{{ relativeRoot }}/{{ page.path }}">{{ page.title|title }}</a></li>
+                        {% endblock %}
+                    {% endfor %}
+                </ul>
+            {% endblock %}
         {% endif %}
     {% endblock %}
 
     {% block tags %}
         {% if tags %}
-            <h2>Tags</h2>
-            <ul>
-                {% for tag in tags %}
-                    {% block tag %}
-                        <li><a href="{{ relativeRoot }}/{{ tag.path }}">{{ tag.title|title }}</a></li>
-                    {% endblock %}
-                {% endfor %}
-            </ul>
+            {% block tags_title %}
+                <h2>Tags</h2>
+            {% endblock %}
+            {% block tags_list %}
+                <ul class="{{ block('ul_class') }}">
+                    {% for tag in tags %}
+                        {% block tag %}
+                            <li><a href="{{ relativeRoot }}/{{ tag.path }}">{{ tag.title|title }}</a></li>
+                        {% endblock %}
+                    {% endfor %}
+                </ul>
+            {% endblock %}
         {% endif %}
     {% endblock %}
 {% endblock %}
