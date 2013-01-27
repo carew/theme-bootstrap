@@ -47,19 +47,19 @@
                   </a>
                   <a class="brand" href="{{ relativeRoot }}">{{ site.title|default('') }}</a>
                   <div class="nav-collapse collapse">
-                    {% block nav_left %}
-                      <ul class="nav">
-                        {% if navigation.main is defined %}
-                          {% for document in navigation.main %}
-                            {% if document.path == currentPath %}
-                              <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
-                            {% else %}
-                              <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
-                            {% endif %}
-                          {% endfor %}
-                        {% endif %}
-                      </ul>
-                    {% endblock %}
+                    <ul class="nav">
+                      {% block nav_left %}
+                          {% if navigation.main is defined %}
+                            {% for document in navigation.main %}
+                              {% if document.path == currentPath %}
+                                <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
+                              {% else %}
+                                <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                      {% endblock %}
+                    </ul>
                     {% block nav_right '' %}
                   </div>
               </div>
