@@ -17,6 +17,7 @@
 
     {% if site.url_absolute is defined and site.url_absolute -%}
       <link rel="canonical" href="{{ site.url_absolute }}/{{ document.path }}"/>
+      <link rel="alternate" href="{{ relativeRoot }}/index.atom" type="application/atom+xml" title="{{ site.title|default('') }}"/>
     {%- endif %}
 
     <link rel="stylesheet" href="{{ relativeRoot }}/css/bootstrap.min.css">
