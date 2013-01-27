@@ -10,5 +10,10 @@
     ],
     "require": {
         "carew/carew": "~1.5"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
     }
 }
