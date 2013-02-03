@@ -91,6 +91,19 @@
               {% endblock %}
 
               {% block content_main document.body|default('')|raw %}
+
+              {% block typo %}
+                {% if site.gh_edit and document.filePath %}
+                  <br />
+                  <p>
+                    By the way, if you found a typo, please
+                      <a href="{{ site.gh_edit}}/{{ document.filePath }}" target="_blank">
+                        edit this post
+                      </a>.
+                    Thank you so much!
+                  </p>
+                {% endif %}
+              {% endblock %}
             </div>
           </div>
         {% endblock %}
