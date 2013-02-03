@@ -22,3 +22,29 @@
     {% endif %}
   </article>
 {% endblock %}
+
+{% block content_footer %}
+    {% if site.disqus_shortname %}
+      <div class="row comments">
+          <div class="span10 offset1 content">
+              <div id="disqus_thread"></div>
+          </div>
+      </div>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if site.disqus_shortname %}
+        <script type="text/javascript">
+            var disqus_shortname = '{{ site.disqus_shortname }}';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    {% endif %}
+{% endblock %}
+
