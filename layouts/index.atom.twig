@@ -13,7 +13,7 @@
     {% for post in posts %}
     <entry>
         <title>{{ post.title }}</title>
-        <content><![CDATA[{{ post.body|striptags|slice(0, 80)|raw }}]]></content>
+        <content><![CDATA[{{ post.body|raw }}]]></content>
         <link rel="alternate" type="text/html" href="{{ site.url_absolute|default('') }}/{{ post.path }}"/>
         {% if site.url_absolute %}
         <id>{{site.url_absolute}}/{{ post.path }}</id>
