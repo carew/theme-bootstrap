@@ -8,13 +8,11 @@
     <id>{{site.url_absolute}}/</id>
     {% endif %}
     {% if latest %}
-    <updated>{{ latest.date|date('Y-m-d\\TH:i:sP') }}</updated>
+    <updated>{{ latest.metadatas.date|date('Y-m-d\\TH:i:sP') }}</updated>
     {% endif %}
     {% for post in posts %}
     <entry>
         <title>{{ post.title }}</title>
-        <content><![CDATA[{{ post.body|raw }}]]></content>
-        <link rel="alternate" type="text/html" href="{{ site.url_absolute|default('') }}/{{ post.path }}"/>
         {% if site.url_absolute %}
         <id>{{site.url_absolute}}/{{ post.path }}</id>
         {% endif %}
@@ -23,6 +21,8 @@
             <name>{{ post.metadatas.author_name|default(site.author_name|default('')) }}</name>
             <email>{{ post.metadatas.author_name|default(site.author_email|default('')) }}</email>
         </author>
+        <link rel="alternate" type="text/html" href="{{ site.url_absolute|default('') }}/{{ post.path }}"/>
+        <content type="html" xml:lang="en"><![CDATA[{{ post.body|raw }}]]></content>
     </entry>
     {% endfor %}
 </feed>
