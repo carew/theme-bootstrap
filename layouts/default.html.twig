@@ -7,28 +7,26 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>{% block title document.title|default(site.title|default('')) %}</title>
+    <title>{% block title carew.document.title|default(carew.site.title|default('')) %}</title>
 
-    <meta name="description" content="{% block description document.metadatas.description|default(site.description|default('')) %}">
-    <meta name="author" content="{{ document.author_name|default(site.author_name|default('')) }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description carew.document.metadatas.description|default(carew.site.description|default('')) %}">
+    <meta name="author" content="{{ carew.document.author_name|default(carew.site.author_name|default('')) }}">
+    <meta name="viewport" content="width=device-width">
 
     {% block metas '' %}
 
-    {% if site.url_absolute is defined and site.url_absolute -%}
-      {% block feed %}
-        <link rel="alternate" href="{{ relativeRoot }}/index.atom" type="application/atom+xml" title="{{ site.title|default('') }}"/>
-      {% endblock %}
-      <link rel="canonical" href="{{ site.url_absolute }}/{{ document.path }}"/>
+    {% if carew.site.url_absolute is defined and carew.site.url_absolute -%}
+      <link rel="canonical" href="{{ carew.site.url_absolute }}/{{ carew.document.path }}"/>
+      <link rel="alternate" href="{{ carew.relativeRoot }}/index.atom" type="application/atom+xml" title="{{ carew.site.title|default('') }}"/>
     {%- endif %}
 
-    {% block stylesheets %}
-      <link rel="stylesheet" href="{{ relativeRoot }}/css/bootstrap.min.css">
-      <link rel="stylesheet" href="{{ relativeRoot }}/css/bootstrap-responsive.min.css">
-      <link rel="stylesheet" href="{{ relativeRoot }}/css/main.css">
-    {% endblock %}
+    <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/main.css">
 
-    <script src="{{ relativeRoot }}/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    {% block stylesheets '' %}
+
+    <script src="{{ carew.relativeRoot }}/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -47,17 +45,13 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="{{ relativeRoot }}">{{ site.title|default('') }}</a>
+                  <a class="brand" href="{{ carew.relativeRoot }}">{{ carew.site.title|default('') }}</a>
                   <div class="nav-collapse collapse">
                     <ul class="nav">
                       {% block nav_left %}
-                          {% if navigation.main is defined %}
-                            {% for document in navigation.main %}
-                              {% if document.path == currentPath %}
-                                <li class="active"><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
-                              {% else %}
-                                <li><a href="{{ relativeRoot }}/{{ document.path}}">{{ document.title }}</a></li>
-                              {% endif %}
+                          {% if carew.navigations.main is defined %}
+                            {% for document in carew.navigations.main %}
+                                <li{% if document.path == carew.currentPath %} class="active"{% endif %}><a href="{{ render_document_path(document) }}">{{ render_document_title(document) }}</a></li>
                             {% endfor %}
                           {% endif %}
                       {% endblock %}
@@ -80,30 +74,17 @@
           <div class="row">
             <div class="span10 offset1 content">
               {% block content_title %}
-                {% if document.title is defined and document.title %}
+                {% if carew.document.title is defined and carew.document.title %}
                   <div class="page-header">
                     <h1>
-                      {{- document.title }}
-                      {%- if document.metadatas.subtitle is defined %} <small>{{ document.metadatas.subtitle }}</small>{% endif -%}
+                      {{- carew.document.title }}
+                      {%- if carew.document.metadatas.subtitle is defined %} <small>{{ carew.document.metadatas.subtitle }}</small>{% endif -%}
                     </h1>
                   </div>
                 {% endif %}
               {% endblock %}
 
-              {% block content_main document.body|default('')|raw %}
-
-              {% block typo %}
-                {% if site.gh_edit and document.filePath %}
-                  <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="{{ site.gh_edit}}/{{ document.filePath }}" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                {% endif %}
-              {% endblock %}
+              {% block content_main carew.document.body|default('')|raw %}
             </div>
           </div>
         {% endblock %}
@@ -112,9 +93,9 @@
           <footer>
             <p>
               &copy;
-              {% if site.author_name %}
-                <a href="{{ site.author_url|default('')}}">
-                  {{ site.author_name }}
+              {% if carew.site.author_name %}
+                <a href="{{ carew.site.author_url|default('')}}">
+                  {{ carew.site.author_name }}
                 </a>
               {% endif %}
               {{ "now"|date("Y") }}
@@ -129,10 +110,9 @@
 
     {% block footer '' %}
 
-    {% block javascripts %}
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="{{ relativeRoot }}/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-      <script src="{{ relativeRoot }}/js/vendor/bootstrap.min.js"></script>
-    {% endblock %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ carew.relativeRoot }}/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+    <script src="{{ carew.relativeRoot }}/js/vendor/bootstrap.min.js"></script>
+    {% block javascripts '' %}
   </body>
 </html>

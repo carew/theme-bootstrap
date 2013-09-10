@@ -1,0 +1,12 @@
+{% extends 'default.html.twig' %}
+
+{% block nav_left %}
+    {{ parent() }}
+    <li class="divider-vertical"></li>
+    {% if carew.document.toc.0 %}
+        {% for item in carew.document.toc.0.children %}
+            <li><a href="#{{ item.id}}">{{ item.title }}</a></li>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+

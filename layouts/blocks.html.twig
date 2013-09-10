@@ -1,0 +1,21 @@
+{% use '@default_theme/blocks.html.twig' %}
+
+{% block document_toc %}
+{% spaceless -%}
+    {% if 0 == deep %}<div class="well">{% endif %}
+    <ul class="nav nav-list">
+        {% if 0 == deep %}
+            <li class="nav-header">Quick access</li>
+        {% endif %}
+        {% for child in children %}
+            <li>
+                <a href="#{{ child.id }}">{{ child.title }}</a>
+                {% if child.children %}
+                    {{ render_document_toc(child.children, deep + 1) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% if 0 == deep %}</div>{% endif %}
+{%- endspaceless %}
+{% endblock %}
