@@ -6,13 +6,9 @@ Installation
 
 Install it with composer:
 
-```
-composer require lyrixx/carew-theme-bootstrap:dev-master
-```
+    composer require lyrixx/carew-theme-bootstrap:~2.0@dev
 
 Then configure `config.yml`
 
-```
-engine:
-    theme_path: %dir%/vendor/carew/theme-bootstrap
-```
+    engine:
+        theme_path: %dir%/vendor/carew/theme-bootstrap
