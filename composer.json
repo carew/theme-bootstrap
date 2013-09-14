@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "carew/carew": "~1.5"
+        "carew/carew": "~2.0"
     },
     "extra": {
         "branch-alias": {
