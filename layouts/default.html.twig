@@ -15,9 +15,11 @@
 
     {% block metas '' %}
 
-    {% if carew.site.url_absolute is defined and carew.site.url_absolute -%}
+    {% if carew.site.url_absolute is defined -%}
       <link rel="canonical" href="{{ carew.site.url_absolute }}/{{ carew.document.path }}"/>
-      <link rel="alternate" href="{{ carew.relativeRoot }}/index.atom" type="application/atom+xml" title="{{ carew.site.title|default('') }}"/>
+      {% block feed %}
+        <link rel="alternate" href="{{ carew.relativeRoot }}/feed/index.atom" type="application/atom+xml" title="{{ carew.site.title|default('') }}"/>
+      {% endblock %}
     {%- endif %}
 
     <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap.min.css">
