@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "carew/carew": "~2.0"
+        "carew/carew": "~2.0@dev"
     },
     "extra": {
         "branch-alias": {
