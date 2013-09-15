@@ -18,7 +18,7 @@
     {% if carew.site.url_absolute is defined -%}
       <link rel="canonical" href="{{ carew.site.url_absolute }}/{{ carew.document.path }}"/>
       {% block feed %}
-        <link rel="alternate" href="{{ carew.relativeRoot }}/feed/index.atom" type="application/atom+xml" title="{{ carew.site.title|default('') }}"/>
+        <link rel="alternate" href="{{ carew.site.url_absolute }}/feed/index.atom" type="application/atom+xml" title="{{ carew.site.title|default('') }}"/>
       {% endblock %}
     {%- endif %}
 
