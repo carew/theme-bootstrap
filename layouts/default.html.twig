@@ -24,21 +24,34 @@
 
     {% block stylesheets %}
     {% spaceless %}
-        <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/main.css">
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
-        {#
-        Some other theme. Visit http://softwaremaniacs.org/soft/highlight/en/ for more
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/solarized_dark.min.css">
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/rainbow.min.css">
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/zenburn.min.css">
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/tomorrow-night-eighties.min.css">
-        #}
+      <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap.min.css">
+      <style type="text/css">
+      @media (min-width: 768px) {
+        .container {
+          max-width: 730px;
+        }
+      }
+      .row {
+        margin:0px;
+      }
+      </style>
+      <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/pojoaque.min.css">
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+      {#
+      Some other theme. Visit http://softwaremaniacs.org/soft/highlight/en/ for more
+      <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/solarized_dark.min.css">
+      <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/rainbow.min.css">
+      <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/zenburn.min.css">
+      <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/tomorrow-night-eighties.min.css">
+      #}
     {% endspaceless %}
     {% endblock %}
-
-    <script src="{{ carew.relativeRoot }}/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -46,87 +59,65 @@
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
 
-    {% block header_before '' %}
-
-    {% block header %}
-      <div class="navbar navbar-fixed-top">
-          <div class="navbar-inner">
-              <div class="container">
-                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </a>
-                  <a class="brand" href="{{ carew.relativeRoot }}">{{ carew.site.title|default('') }}</a>
-                  <div class="nav-collapse collapse">
-                    <ul class="nav">
-                      {% block nav_left %}
-                          {% if carew.navigations.main is defined %}
-                            {% for document in carew.navigations.main %}
-                                <li{% if document.path == carew.currentPath %} class="active"{% endif %}><a href="{{ render_document_path(document) }}">{{ render_document_title(document) }}</a></li>
-                            {% endfor %}
-                          {% endif %}
-                      {% endblock %}
-                    </ul>
-                    {% block nav_right '' %}
-                  </div>
-              </div>
-          </div>
-      </div>
-    {% endblock %}
-
-    {% block header_after '' %}
-
     {% block content %}
       <div class="container">
+        <div class="row">
+          <div class="">
+            {% block content_header %}
+              <div class="page-header">
+                <ul class="list-inline pull-right">
+                  {% if carew.navigations.main is defined %}
+                    {% for document in carew.navigations.main %}
+                      <li{% if document.path == carew.currentPath %} class="active"{% endif %}><a href="{{ render_document_path(document) }}">{{ render_document_title(document) }}</a></li>
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+                <h4><a class="" href="{{ carew.relativeRoot }}">{{ carew.site.title|default('') }}</a></h4>
+              </div>
+            {% endblock %}
 
-        {% block content_header '' %}
+            {% block content_container %}
+              <div class="content">
+                {% block content_title %}
+                  {% if carew.document.title is defined and carew.document.title %}
+                    <h1>{{ carew.document.title }}{%- if carew.document.metadatas.subtitle is defined %}
+                          <small>{{ carew.document.metadatas.subtitle }}</small>
+                        {% endif -%}</h1>
+                  {% endif %}
+                {% endblock %}
 
-        {% block content_container %}
-          <div class="row">
-            <div class="span10 offset1 content">
-              {% block content_title %}
-                {% if carew.document.title is defined and carew.document.title %}
-                  <div class="page-header">
-                    <h1>
-                      {{- carew.document.title }}
-                      {%- if carew.document.metadatas.subtitle is defined %} <small>{{ carew.document.metadatas.subtitle }}</small>{% endif -%}
-                    </h1>
-                  </div>
-                {% endif %}
-              {% endblock %}
+                {% block content_main carew.document.body|default('')|raw %}
+              </div>
+            {% endblock %}
 
-              {% block content_main carew.document.body|default('')|raw %}
-            </div>
+            {% block content_footer %}
+              <footer>
+                <p class="text-center">
+                  &copy;
+                  {% if carew.site.author_name %}
+                    <a href="{{ carew.site.author_url|default('')}}">
+                      {{ carew.site.author_name }}
+                    </a>
+                  {% endif %}
+                  {{ "now"|date("Y") }}
+                  <small>
+                    with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+                  </small>
+                </p>
+              </footer>
+            {% endblock %}
           </div>
-        {% endblock %}
-
-        {% block content_footer %}
-          <footer>
-            <p>
-              &copy;
-              {% if carew.site.author_name %}
-                <a href="{{ carew.site.author_url|default('')}}">
-                  {{ carew.site.author_name }}
-                </a>
-              {% endif %}
-              {{ "now"|date("Y") }}
-              <small>
-                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
-              </small>
-            </p>
-          </footer>
-        {% endblock %}
+        </div>
       </div>
     {% endblock %}
 
     {% block footer '' %}
 
     {% block javascripts %}
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="{{ carew.relativeRoot }}/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-      <script src="{{ carew.relativeRoot }}/js/vendor/bootstrap.min.js"></script>
-      <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{ carew.relativeRoot }}/js/jquery-2.1.0.min.js"><\/script>')</script>
+      <script src="{{ carew.relativeRoot }}/js/bootstrap.min.js"></script>
+      <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
       <script>hljs.initHighlightingOnLoad();</script>
     {% endblock %}
   </body>
