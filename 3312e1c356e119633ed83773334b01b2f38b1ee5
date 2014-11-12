@@ -1,0 +1,38 @@
+---------------------------------------------------------------------------
+
+by lyrixx at 2014-02-13T22:19:21Z
+
+You did it. Very nice ;) Thank you. @gnugat will be happy.
+
+I have to try it on my different project.
+But I wonder something: May be, we can load bootstrap and jquery with composer. But it may be hard because of `vendor` dir...
+
+---------------------------------------------------------------------------
+
+by lyrixx at 2014-02-13T22:20:43Z
+
+warning, you commited this files `assets/fonts/.DS_Store`
+
+---------------------------------------------------------------------------
+
+by gnugat at 2014-02-14T09:18:21Z
+
+:+1:
+
+---------------------------------------------------------------------------
+
+by tony-co at 2014-03-05T21:26:35Z
+
+@lyrixx It took me a while sorry. Removed the `.DS_Store` and rebase done.
+
+---------------------------------------------------------------------------
+
+by tony-co at 2014-03-05T21:28:02Z
+
+That could be another improvement to move jquery and bootstrap to a bower install ;)
+
+---------------------------------------------------------------------------
+
+by gnugat at 2014-03-06T08:37:17Z
+
+[![I love it!](http://d24w6bsrhbeh9d.cloudfront.net/photo/a5dnn7q_700b.jpg)](http://youtu.be/yI2AbCy1NVw?t=1m58s)
