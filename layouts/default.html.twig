@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title carew.document.title|default(carew.site.title|default('')) %}</title>
 
@@ -24,25 +22,11 @@
 
     {% block stylesheets %}
     {% spaceless %}
+      <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap.min.css">
-      <style type="text/css">
-      @media (min-width: 768px) {
-        .container {
-          max-width: 730px;
-        }
-      }
-      .row {
-        margin:0px;
-      }
-      </style>
+      <link rel="stylesheet" href="{{ carew.relativeRoot }}/css/bootstrap-theme.min.css">
+
       <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/pojoaque.min.css">
-
-      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-      <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-
       {#
       Some other theme. Visit http://softwaremaniacs.org/soft/highlight/en/ for more
       <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/solarized_dark.min.css">
@@ -55,67 +39,69 @@
   </head>
 
   <body>
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-    <![endif]-->
-
     {% block content %}
       <div class="container">
-        <div class="row">
-          <div class="">
-            {% block content_header %}
-              <div class="page-header">
-                <ul class="list-inline pull-right">
-                  {% if carew.navigations.main is defined %}
-                    {% for document in carew.navigations.main %}
-                      <li{% if document.path == carew.currentPath %} class="active"{% endif %}><a href="{{ render_document_path(document) }}">{{ render_document_title(document) }}</a></li>
-                    {% endfor %}
-                  {% endif %}
-                </ul>
-                <h4><a class="" href="{{ carew.relativeRoot }}">{{ carew.site.title|default('') }}</a></h4>
-              </div>
-            {% endblock %}
-
-            {% block content_container %}
-              <div class="content">
-                {% block content_title %}
-                  {% if carew.document.title is defined and carew.document.title %}
-                    <h1>{{ carew.document.title }}{%- if carew.document.metadatas.subtitle is defined %}
-                          <small>{{ carew.document.metadatas.subtitle }}</small>
-                        {% endif -%}</h1>
-                  {% endif %}
-                {% endblock %}
-
-                {% block content_main carew.document.body|default('')|raw %}
-              </div>
-            {% endblock %}
-
-            {% block content_footer %}
-              <footer>
-                <p class="text-center">
-                  &copy;
-                  {% if carew.site.author_name %}
-                    <a href="{{ carew.site.author_url|default('')}}">
-                      {{ carew.site.author_name }}
+        {% block content_header %}
+          <div class="page-header">
+            <ul class="list-inline pull-right">
+              {% if carew.navigations.main is defined %}
+                {% for document in carew.navigations.main %}
+                  <li{% if document.path == carew.currentPath %} class="active"{% endif %}>
+                    <a href="{{ render_document_path(document) }}">
+                      {{ render_document_title(document) }}
                     </a>
-                  {% endif %}
-                  {{ "now"|date("Y") }}
-                  <small>
-                    with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
-                  </small>
-                </p>
-              </footer>
-            {% endblock %}
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+            <h1>
+              <a href="{{ carew.relativeRoot }}">
+                {{ carew.site.title|default('') }}
+              </a>
+            </h1>
           </div>
-        </div>
+        {% endblock %}
+
+        {% block content_container %}
+          <div class="content">
+            {% block content_title %}
+              {% if carew.document.title is defined and carew.document.title %}
+                <h1>
+                  {{ carew.document.title }}
+                  {%- if carew.document.metadatas.subtitle is defined %}
+                    <small>{{ carew.document.metadatas.subtitle }}</small>
+                  {% endif -%}
+                </h1>
+              {% endif %}
+            {% endblock %}
+
+            {% block content_main carew.document.body|default('')|raw %}
+          </div>
+        {% endblock %}
+
+        {% block content_footer %}
+          <footer>
+            <p class="text-center">
+              &copy;
+              {% if carew.site.author_name %}
+                <a href="{{ carew.site.author_url|default('')}}">
+                  {{ carew.site.author_name }}
+                </a>
+              {% endif %}
+              {{ "now"|date("Y") }}
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        {% endblock %}
       </div>
     {% endblock %}
 
     {% block footer '' %}
 
     {% block javascripts %}
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="{{ carew.relativeRoot }}/js/jquery-2.1.0.min.js"><\/script>')</script>
+      <script src="{{ carew.relativeRoot }}/js/jquery-2.1.0.min.js"></script>
       <script src="{{ carew.relativeRoot }}/js/bootstrap.min.js"></script>
       <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
       <script>hljs.initHighlightingOnLoad();</script>
