@@ -50,15 +50,15 @@
 {% block pagination %}
 {% spaceless %}
     {% if 1 < pages|length %}
-        <div class="pagination">
-            <ul>
+        <nav>
+            <ul class="pagination">
                 {% for page_number, document in pages %}
                     <li{% if current_page == page_number %} class="active"{% endif %}>
                         <a href="{{ render_document_path(document) }}">{{ page_number }}</a>
                     </li>
                 {% endfor %}
             </ul>
-        </div>
+        </nav>
     {% endif %}
 {% endspaceless %}
 {% endblock %}
