@@ -85,7 +85,7 @@
               &copy;
               {% if carew.site.author_name %}
                 <a href="{{ carew.site.author_url|default('')}}">
-                  {{ carew.site.author_name }}
+                  {{- carew.site.author_name -}}
                 </a>
               {% endif %}
               {{ "now"|date("Y") }}
